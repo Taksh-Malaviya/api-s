@@ -157,3 +157,33 @@ class _HomeState extends State<Home> {
 //     data = json['products'];
 //   });
 // }
+
+//Post
+  void register({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+  }) async {
+    String url = "http://localhost:4000/api/v1/auth/signup";
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+        body: {
+          "firstName": firstName,
+          "lastName": lastName,
+          "email": email,
+          "password": password,
+        },
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = jsonDecode(response.body);
+        log("Registration successful: $data");
+      } else {
+        log("Registration failed: ${response.statusCode} - ${response.body}");
+      }
+    } catch (e) {
+      log("Error occurred: $e");
+    }
+  }
