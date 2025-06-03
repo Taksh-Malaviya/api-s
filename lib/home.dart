@@ -187,3 +187,24 @@ class _HomeState extends State<Home> {
       log("Error occurred: $e");
     }
   }
+
+//for checking lohin ststus with shredprefrence
+
+  Future<void> checkLoginStatus() async {
+    await Future.delayed(Duration(seconds: 3));
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      Get.offAllNamed(Routes.home);
+    } else {
+      Get.offAllNamed(Routes.login);
+    }
+  }
+
+//after when log in click 
+
+//Perform This
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBoll('isLoggedIn',false);
